@@ -15,7 +15,9 @@ const port = process.env.PORT || 3000;
 // DB setup
 const adapter = new JSONFile('./db.json');
 const db = new Low(adapter);
-await db.read();
+await db.read().catch(() => {
+  db.data = { tokens: [] };
+});
 db.data ||= { tokens: [] };
 
 // Statik klasör
