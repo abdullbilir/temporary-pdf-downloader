@@ -14,12 +14,16 @@ const port = process.env.PORT || 3000;
 const adapter = new JSONFile('./db.json');
 const db = new Low(adapter);
 
-await db.read().catch(() => {
-  db.data = { downloadedIPs: [] };
-});
-db.data ||= { downloadedIPs: [] };
+// ÖNCE veri oku
+await db.read();
 
-// PDF indirme endpoint'i
+// EĞER veri yoksa, varsayılanı ata
+if (!db.data) {
+  db.data = { downloadedIPs: [] };
+  await db.write(); // Render ortamında yoksa yaz
+}
+
+// İndirme endpoint'i
 app.get('/download', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
