@@ -14,11 +14,8 @@ const port = process.env.PORT || 3000;
 
 // DB setup
 const adapter = new JSONFile('./db.json');
-const db = new Low(adapter);
-await db.read().catch(() => {
-  db.data = { tokens: [] };
-});
-db.data ||= { tokens: [] };
+const db = new Low(adapter, { tokens: [] }); // Varsayılan veri buraya eklendi
+await db.read();
 
 // Statik klasör
 app.use('/pdf', express.static(path.join(__dirname, 'uploads')));
