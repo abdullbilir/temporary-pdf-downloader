@@ -1,0 +1,14 @@
+{
+  "name": "tek-indir-link",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.0",
+    "lowdb": "^6.0.1"
+  }
+}
